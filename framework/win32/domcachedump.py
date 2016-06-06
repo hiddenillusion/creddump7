@@ -122,7 +122,7 @@ def dump_hashes(sysaddr, secaddr, vista):
             hash) = parse_decrypted_cache(dec_data, uname_len,
                     domain_len, domain_name_len)
 
-        hashes.append((username, domain, domain_name, hash))
+        hashes.append((v.Name, username, domain, domain_name, hash))
 
     return hashes 
 
@@ -130,6 +130,6 @@ def dump_file_hashes(syshive_fname, sechive_fname, vista):
     sysaddr = HiveFileAddressSpace(syshive_fname)
     secaddr = HiveFileAddressSpace(sechive_fname)
 
-    for (u, d, dn, hash) in dump_hashes(sysaddr, secaddr, vista):
-        print "%s:%s:%s:%s" % (u.lower(), hash.encode('hex'),
+    for (reg_key_value, u, d, dn, hash) in dump_hashes(sysaddr, secaddr, vista):
+        print "%s - %s:%s:%s:%s" % (u.lower(), hash.encode('hex'),
                                d.lower(), dn.lower())
